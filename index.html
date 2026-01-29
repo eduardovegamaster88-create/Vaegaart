@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vegaart - Ilustrador de Manga y Comic</title>
+<meta name="description" content="Portfolio de ilustraciones manga y comic de Eduardo Vega, ilustrador profesional con pasión por Dragon Ball y el arte secuencial.">
+
+<!-- Preconnect para fuentes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+<!-- Fonts con display=swap para carga más rápida -->
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Work+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+    --primary: #ff3d00;
+    --primary-light: #ff6e40;
+    --primary-dark: #dd2c00;
+    --secondary: #ffd600;
+    --dark: #0a0a0a;
+    --dark-alt: #1a1a1a;
+    --dark-card: #151515;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --shadow: rgba(255, 61, 0, 0.3);
+    --shadow-heavy: rgba(255, 61, 0, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Work Sans', sans-serif;
+    color: var(--text-primary);
+    background: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Blurred background image */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    /* background: url("imagenes/03.jpg") center/cover no-repeat; */
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    filter: blur(20px) brightness(0.4);
+    z-index: -2;
+    transform: scale(1.1);
+}
+
+/* Dark overlay with animated grain */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: 
+        rgba(0, 0, 0, 0.7),
+        linear-gradient(180deg, rgba(255, 61, 0, 0.05) 0%, transparent 100%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulance type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    z-index: -1;
+    animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-10%, 5%); }
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--dark-alt) 100%);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--primary);
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    opacity: 0.05;
+    animation: pulse 15s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.05; }
+    50% { transform: scale(1.1); opacity: 0.08; }
+}
+
+.logo {
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--primary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    animation: slideDown 0.8s ease-out;
+    text-shadow: 
+        0 0 20px var(--shadow),
+        0 0 40px var(--shadow),
+        3px 3px 0 var(--dark),
+        -3px -3px 0 var(--dark);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tagline {
+    color: var(--secondary);
+    font-size: clamp(1rem, 3vw, 1.6rem);
+    font-weight: 600;
+    margin-top: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Navigation */
+nav {
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    padding: 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--primary);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+nav a {
+    color: var(--text-primary);
+    margin: 0 clamp(0.8rem, 3vw, 2rem);
+    text-decoration: none;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: clamp(3rem, 8vw, 6rem) 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.hero h2 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    animation: fadeIn 1s ease-out 0.3s both;
+    text-shadow: 0 0 30px var(--shadow);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.hero p {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-weight: 300;
+    animation: fadeIn 1s ease-out 0.5s both;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    animation: fadeIn 1s ease-out 0.7s both;
+}
+
+.social-links a {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-links a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px var(--shadow-heavy);
+}
+
+.social-links a:hover::before {
+    opacity: 1;
+}
+
+.social-links a i {
+    position: relative;
+    z-index: 1;
+}
+
+/* Container */
+.container {
+    max-width: 1400px;
+    margin: auto;
+    padding: clamp(3rem, 8vw, 5rem) 2rem;
+}
+
+.section-title {
+    text-align: center;
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--primary);
+    margin-bottom: clamp(2rem, 6vw, 4rem);
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    text-shadow: 0 0 30px var(--shadow);
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+/* Category Selection */
+.category-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
+.category-card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+}
+
+.category-preview {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+}
+
+.category-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+.category-card:hover .category-preview img {
+    transform: scale(1.1);
+}
+
+.category-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 2rem;
+    color: white;
+    transition: background 0.3s ease;
+    pointer-events: none;
+}
+
+.category-card:hover .category-overlay {
+    background: linear-gradient(to top, rgba(255, 61, 0, 0.9) 0%, rgba(255, 61, 0, 0.5) 50%, transparent 100%);
+}
+
+.category-overlay i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.category-overlay h3 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.category-overlay p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.view-btn {
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 50px;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: all 0.4s ease;
+    box-shadow: 
+        0 4px 15px var(--shadow),
+        0 0 20px rgba(255, 61, 0, 0.3);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.view-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 50px;
+}
+
+.view-btn::after {
+    content: "→";
+    margin-left: 0.5rem;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .view-btn {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 
+        0 8px 25px var(--shadow-heavy),
+        0 0 30px rgba(255, 214, 0, 0.5);
+    border-color: var(--secondary);
+}
+
+.category-card:hover .view-btn::after {
+    transform: translateX(5px);
+}
+
+/* Back Button */
+.back-btn {
+    display: none;
+    margin: 2rem auto;
+    padding: 1rem 2.5rem;
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--primary);
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 50px;
+    position: relative;
+}
+
+.back-btn.show {
+    display: block;
+}
+
+.back-btn i {
+    margin-right: 0.5rem;
+}
+
+.back-btn:hover {
+    background: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px var(--shadow);
+}
+
+/* Gallery */
+.gallery {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.gallery.active-gallery {
+    display: grid;
+    animation: fadeInGallery 0.5s ease-out;
+}
+
+@keyframes fadeInGallery {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media(max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .category-selection {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .category-overlay h3 {
+        font-size: 1.5rem;
+    }
+    
+    .category-overlay i {
+        font-size: 2.5rem;
+    }
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 3/4;
+    background: var(--dark-card);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    mix-blend-mode: multiply;
+}
+
+.gallery-item::after {
+    content: "VER COMPLETA";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 
+        0 15px 40px var(--shadow),
+        0 0 0 3px var(--primary);
+}
+
+.gallery-item:hover::before {
+    opacity: 0.3;
+}
+
+.gallery-item:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Smooth image loading */
+.gallery-item img {
+    opacity: 0;
+    animation: imageLoad 0.6s ease-out 0.1s forwards;
+}
+
+@keyframes imageLoad {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    justify-content: center;
+    align-items: center;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(35px) brightness(0.6);
+    transform: scale(1.3);
+    transition: background-image 0.3s ease;
+    z-index: 0;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    overflow: hidden;
+    animation: modalZoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Loading spinner */
+.modal-content::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    border: 5px solid rgba(255, 61, 0, 0.2);
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.modal-content.loading::before {
+    opacity: 1;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes modalZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 10px;
+    box-shadow: 
+        0 0 0 3px var(--dark),
+        0 0 0 6px var(--primary),
+        0 20px 60px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    cursor: zoom-in;
+    opacity: 0;
+    transform-origin: center center;
+}
+
+.modal-content img.show {
+    opacity: 1;
+}
+
+.modal-content img.zoomed {
+    cursor: zoom-out;
+}
+
+.close-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 0.8rem 2rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border: none;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: white;
+    cursor: pointer;
+    z-index: 5002;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.close-btn:hover {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px var(--shadow-heavy);
+}
+
+.modal-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    color: var(--primary);
+    cursor: pointer;
+    user-select: none;
+    z-index: 5001;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-arrow:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.modal-arrow.left {
+    left: 30px;
+}
+
+.modal-arrow.right {
+    right: 30px;
+}
+
+@media(max-width: 768px) {
+    .modal-arrow {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .modal-arrow.left {
+        left: 15px;
+    }
+    
+    .modal-arrow.right {
+        right: 15px;
+    }
+}
+
+/* Sale Section */
+.sale-section {
+    padding: clamp(3rem, 8vw, 6rem) 2rem;
+    background: linear-gradient(135deg, var(--dark-alt) 0%, var(--dark) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 4rem;
+}
+
+.sale-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+.sale-section h2 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--primary);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 30px var(--shadow);
+}
+
+.sale-section p {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.btn-sale {
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    display: inline-block;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: 0 4px 20px var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-sale::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-sale span {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-sale:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px var(--shadow-heavy);
+}
+
+.btn-sale:hover::before {
+    opacity: 1;
+}
+
+/* Footer */
+footer {
+    background: var(--dark);
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 3px solid var(--primary);
+    position: relative;
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+footer p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--primary-light);
+    text-decoration: underline;
+}
+
+/* Scroll to top button */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 99;
+    box-shadow: 0 4px 20px var(--shadow);
+}
+
+.scroll-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px var(--shadow-heavy);
+}
+
+/* Responsive adjustments */
+@media(max-width: 768px) {
+    .hero {
+        padding: 3rem 1.5rem;
+    }
+    
+    .container {
+        padding: 3rem 1.5rem;
+    }
+    
+    .close-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+        top: 15px;
+        right: 15px;
+    }
+    
+    .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Loading spinner */
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+.loading::after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--dark-alt);
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1 class="logo">Vegaart</h1>
+    <p class="tagline">Adicto al Dibujo</p>
+</header>
+
+<nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#galeria">Galería</a>
+    <a href="#venta">Venta</a>
+    <a href="#contacto">Contacto</a>
+</nav>
+
+<section class="hero" id="inicio">
+    <h2>Ilustrador de Manga y Comic USA</h2>
+    <p>
+        Mi adicción al dibujo partió desde muy pequeño viendo Dragon Ball
+        y nunca más se fue de mi ser. Hoy expreso ideas en papel y digitalmente,
+        creando mundos visuales que combinan la tradición del manga con mi propia visión artística.
+    </p>
+
+    <div class="social-links">
+        <a href="https://www.instagram.com/eduardo.vega88/" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://vegamaster.artstation.com" target="_blank" aria-label="ArtStation">
+            <i class="fab fa-artstation"></i>
+        </a>
+    </div>
+</section>
+
+<div class="container">
+    <h2 class="section-title" id="galeria">Portafolio</h2>
+
+    <!-- Vista de selección de categoría -->
+    <div class="category-selection" id="category-selection">
+        <div class="category-card" id="digital-card">
+            <div class="category-preview">
+                <img src="Digital_Art/01.jpg" alt="Digital Art Preview" loading="eager">
+                <div class="category-overlay">
+                    <i class="fas fa-tablet-alt"></i>
+                    <h3>Digital Art</h3>
+                    <p>13 ilustraciones</p>
+                    <span class="view-btn">Ver Galería</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category-card" id="traditional-card">
+            <div class="category-preview">
+                <img src="Traditional_Art/01.jpg" alt="Traditional Art Preview" loading="eager">
+                <div class="category-overlay">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Traditional Art</h3>
+                    <p>7 ilustraciones</p>
+                    <span class="view-btn">Ver Galería</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón de regresar (oculto inicialmente) -->
+    <button class="back-btn" id="back-btn">
+        <i class="fas fa-arrow-left"></i> Volver a Categorías
+    </button>
+
+    <!-- Galería Digital Art (oculta inicialmente) -->
+    <div class="gallery" id="digital-gallery">
+        <div class="gallery-item" data-full="Digital_Art/01.jpg">
+            <img src="Digital_Art/01.jpg" alt="Digital Art 1" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/02.png">
+            <img src="Digital_Art/02.png" alt="Digital Art 2" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/03.jpg">
+            <img src="Digital_Art/03.jpg" alt="Digital Art 3" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/04.png">
+            <img src="Digital_Art/04.png" alt="Digital Art 4" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/05.png">
+            <img src="Digital_Art/05.png" alt="Digital Art 5" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/06.png">
+            <img src="Digital_Art/06.png" alt="Digital Art 6" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/07.jpg">
+            <img src="Digital_Art/07.jpg" alt="Digital Art 7" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/08.jpg">
+            <img src="Digital_Art/08.jpg" alt="Digital Art 8" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/09.jpg">
+            <img src="Digital_Art/09.jpg" alt="Digital Art 9" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/10.jpg">
+            <img src="Digital_Art/10.jpg" alt="Digital Art 10" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/11.png">
+            <img src="Digital_Art/11.png" alt="Digital Art 11" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/12.jpg">
+            <img src="Digital_Art/12.jpg" alt="Digital Art 12" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Digital_Art/13.png">
+            <img src="Digital_Art/13.png" alt="Digital Art 13" loading="lazy">
+        </div>
+    </div>
+
+    <!-- Galería Traditional Art (oculta inicialmente) -->
+    <div class="gallery" id="traditional-gallery">
+        <div class="gallery-item" data-full="Traditional_Art/01.jpg">
+            <img src="Traditional_Art/01.jpg" alt="Traditional Art 1" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Traditional_Art/02.JPG">
+            <img src="Traditional_Art/02.JPG" alt="Traditional Art 2" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Traditional_Art/03.jpg">
+            <img src="Traditional_Art/03.jpg" alt="Traditional Art 3" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Traditional_Art/04.jpg">
+            <img src="Traditional_Art/04.jpg" alt="Traditional Art 4" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Traditional_Art/05.jpg">
+            <img src="Traditional_Art/05.jpg" alt="Traditional Art 5" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Traditional_Art/06.jpg">
+            <img src="Traditional_Art/06.jpg" alt="Traditional Art 6" loading="lazy">
+        </div>
+        <div class="gallery-item" data-full="Traditional_Art/07.jpg">
+            <img src="Traditional_Art/07.jpg" alt="Traditional Art 7" loading="lazy">
+        </div>
+    </div>
+</div>
+
+<section class="sale-section" id="venta">
+    <h2>Venta de Originales</h2>
+    <p>
+        Adquiere mis ilustraciones originales, firmadas y listas para enmarcar. 
+        Cada pieza es única y hecha con dedicación para coleccionistas y fans del manga y comic.
+        Disponibilidad limitada de obras originales.
+    </p>
+    <a href="mailto:vegamaster88@gmail.com" class="btn-sale">
+        <span>Contactar / Comprar</span>
+    </a>
+    <a href="#galeria" class="btn-sale">
+        <span>Ver Galería</span>
+    </a>
+</section>
+
+<footer id="contacto">
+    <p>Contacto: <a href="mailto:vegamaster88@gmail.com">vegamaster88@gmail.com</a></p>
+    <p style="margin-top: 1rem; font-size: 0.9rem;">© 2025 Vegaart - Todos los derechos reservados</p>
+</footer>
+
+<!-- Scroll to top button -->
+<div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+    <div class="modal-bg" id="modalBg"></div>
+    <div class="modal-overlay"></div>
+
+    <button class="close-btn" id="closeBtn">CERRAR</button>
+
+    <div class="modal-arrow left" onclick="move(-1)">&#10094;</div>
+
+    <div class="modal-content">
+        <img id="modalImg">
+    </div>
+
+    <div class="modal-arrow right" onclick="move(1)">&#10095;</div>
+</div>
+
+<script>
+// Esperar a que el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Loaded - Iniciando script');
+    
+    // Obtener elementos
+    const categorySelection = document.getElementById('category-selection');
+    const backBtn = document.getElementById('back-btn');
+    const digitalCard = document.getElementById('digital-card');
+    const traditionalCard = document.getElementById('traditional-card');
+    const digitalGallery = document.getElementById('digital-gallery');
+    const traditionalGallery = document.getElementById('traditional-gallery');
+    
+    // Verificar que los elementos existan
+    console.log('Elementos encontrados:', {
+        categorySelection: !!categorySelection,
+        backBtn: !!backBtn,
+        digitalCard: !!digitalCard,
+        traditionalCard: !!traditionalCard,
+        digitalGallery: !!digitalGallery,
+        traditionalGallery: !!traditionalGallery
+    });
+    
+    // Variables para modal
+    var modal = document.getElementById("modal");
+    var modalImg = document.getElementById("modalImg");
+    var modalBg = document.getElementById("modalBg");
+    var closeBtn = document.getElementById("closeBtn");
+    var allItems = [];
+    var index = 0;
+    
+    // Click en Digital Art
+    if (digitalCard) {
+        digitalCard.addEventListener('click', function(e) {
+            console.log('Click en Digital Art');
+            e.preventDefault();
+            categorySelection.style.display = 'none';
+            backBtn.classList.add('show');
+            digitalGallery.classList.add('active-gallery');
+            traditionalGallery.classList.remove('active-gallery');
+            updateGalleryItems();
+            setTimeout(() => {
+                document.getElementById('galeria').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+        console.log('Event listener añadido a Digital Art');
+    } else {
+        console.error('digitalCard no encontrado');
+    }
+    
+    // Click en Traditional Art
+    if (traditionalCard) {
+        traditionalCard.addEventListener('click', function(e) {
+            console.log('Click en Traditional Art');
+            e.preventDefault();
+            categorySelection.style.display = 'none';
+            backBtn.classList.add('show');
+            traditionalGallery.classList.add('active-gallery');
+            digitalGallery.classList.remove('active-gallery');
+            updateGalleryItems();
+            setTimeout(() => {
+                document.getElementById('galeria').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+        console.log('Event listener añadido a Traditional Art');
+    } else {
+        console.error('traditionalCard no encontrado');
+    }
+    
+    // Click en botón de volver
+    if (backBtn) {
+        backBtn.addEventListener('click', function() {
+            categorySelection.style.display = 'grid';
+            backBtn.classList.remove('show');
+            digitalGallery.classList.remove('active-gallery');
+            traditionalGallery.classList.remove('active-gallery');
+            setTimeout(() => {
+                document.getElementById('galeria').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+    }
+    
+    // Actualizar items de galería activa
+    function updateGalleryItems() {
+        const activeGallery = document.querySelector('.gallery.active-gallery');
+        if (activeGallery) {
+            allItems = Array.from(activeGallery.querySelectorAll('.gallery-item'));
+        }
+    }
+    
+    // Event delegation para items de galería
+    document.addEventListener('click', function(e) {
+        var item = e.target.closest('.gallery-item');
+        if(!item) return;
+        
+        const activeGallery = document.querySelector('.gallery.active-gallery');
+        if (!activeGallery) return;
+        
+        allItems = Array.from(activeGallery.querySelectorAll('.gallery-item'));
+        index = allItems.indexOf(item);
+        if(index >= 0) openModal(index);
+    });
+    
+    function openModal(i){
+        console.log('Abriendo modal para imagen:', i, allItems[i].dataset.full);
+        index = i;
+        modal.style.display = "flex";
+        modalImg.classList.remove('show');
+        
+        const imgSrc = allItems[i].dataset.full;
+        const modalContent = document.querySelector('.modal-content');
+        
+        // Mostrar spinner de carga
+        modalContent.classList.add('loading');
+        modalBg.style.backgroundImage = "url('" + imgSrc + "')";
+        
+        const tempImg = new Image();
+        let loadTimeout;
+        
+        // Timeout de 10 segundos para imágenes muy pesadas
+        loadTimeout = setTimeout(function() {
+            console.warn('La imagen está tardando mucho en cargar:', imgSrc);
+            modalContent.classList.remove('loading');
+            modalImg.src = imgSrc;
+            modalImg.classList.add('show');
+        }, 10000);
+        
+        tempImg.onload = function() {
+            clearTimeout(loadTimeout);
+            console.log('Imagen cargada exitosamente:', imgSrc);
+            modalContent.classList.remove('loading');
+            modalImg.src = imgSrc;
+            setTimeout(() => modalImg.classList.add('show'), 50);
+        };
+        
+        tempImg.onerror = function() {
+            clearTimeout(loadTimeout);
+            console.error('Error al cargar imagen:', imgSrc);
+            modalContent.classList.remove('loading');
+            modalImg.alt = 'Error: Imagen no disponible';
+            setTimeout(() => modalImg.classList.add('show'), 50);
+            alert('No se pudo cargar la imagen: ' + imgSrc + '\nPuede ser que el archivo sea muy pesado o no exista.');
+        };
+        
+        tempImg.src = imgSrc;
+        document.body.style.overflow = 'hidden';
+    }
+    
+    window.move = function(dir){
+        index = (index + dir + allItems.length) % allItems.length;
+        modalImg.classList.remove('show');
+        
+        const imgSrc = allItems[index].dataset.full;
+        const modalContent = document.querySelector('.modal-content');
+        
+        console.log('Cambiando a imagen:', index, imgSrc);
+        modalContent.classList.add('loading');
+        modalBg.style.backgroundImage = "url('" + imgSrc + "')";
+        
+        setTimeout(function(){
+            const tempImg = new Image();
+            let loadTimeout;
+            
+            // Timeout de 10 segundos
+            loadTimeout = setTimeout(function() {
+                console.warn('La imagen está tardando mucho:', imgSrc);
+                modalContent.classList.remove('loading');
+                modalImg.src = imgSrc;
+                setTimeout(() => modalImg.classList.add('show'), 50);
+            }, 10000);
+            
+            tempImg.onload = function() {
+                clearTimeout(loadTimeout);
+                console.log('Imagen cargada:', imgSrc);
+                modalContent.classList.remove('loading');
+                modalImg.src = imgSrc;
+                setTimeout(() => modalImg.classList.add('show'), 50);
+            };
+            
+            tempImg.onerror = function() {
+                clearTimeout(loadTimeout);
+                console.error('Error al cargar imagen:', imgSrc);
+                modalContent.classList.remove('loading');
+                alert('No se pudo cargar la imagen: ' + imgSrc);
+            };
+            
+            tempImg.src = imgSrc;
+        }, 200);
+    }
+    
+    if (closeBtn) {
+        closeBtn.onclick = function(){
+            modal.style.display = "none";
+            document.body.style.overflow = '';
+        };
+    }
+    
+    if (modal) {
+        modal.onclick = function(e){
+            if(e.target === modal || e.target.classList.contains('modal-overlay')){
+                modal.style.display = "none";
+                document.body.style.overflow = '';
+            }
+        };
+    }
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e){
+    if(modal.style.display === 'flex'){
+        if(e.key === 'ArrowLeft') move(-1);
+        if(e.key === 'ArrowRight') move(1);
+        if(e.key === 'Escape') {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    }
+});
+
+// Touch swipe for mobile
+var startX = 0;
+modalImg.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX;
+});
+
+modalImg.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].clientX - startX;
+    if(diff > 50) move(-1);
+    else if(diff < -50) move(1);
+});
+
+// Zoom functionality for modal image
+let isZoomed = false;
+
+modalImg.addEventListener("click", function(e) {
+    e.stopPropagation();
+    
+    if (!isZoomed) {
+        // Zoom in
+        const rect = modalImg.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width * 100;
+        const y = (e.clientY - rect.top) / rect.height * 100;
+        
+        modalImg.style.transformOrigin = x + "% " + y + "%";
+        modalImg.style.transform = "scale(2)";
+        modalImg.style.cursor = "zoom-out";
+        modalImg.classList.add('zoomed');
+        isZoomed = true;
+    } else {
+        // Zoom out
+        modalImg.style.transform = "scale(1)";
+        modalImg.style.transformOrigin = "center center";
+        modalImg.style.cursor = "zoom-in";
+        modalImg.classList.remove('zoomed');
+        isZoomed = false;
+    }
+});
+
+// Reset zoom when changing images
+function resetZoom() {
+    modalImg.style.transform = "scale(1)";
+    modalImg.style.transformOrigin = "center center";
+    modalImg.style.cursor = "zoom-in";
+    modalImg.classList.remove('zoomed');
+    isZoomed = false;
+}
+
+// Update move function to reset zoom
+const originalMove = move;
+move = function(dir) {
+    resetZoom();
+    originalMove(dir);
+};
+
+// Scroll to top button
+const scrollTopBtn = document.getElementById('scrollTop');
+
+window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('show');
+    } else {
+        scrollTopBtn.classList.remove('show');
+    }
+});
+
+scrollTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+}); // Cierre del DOMContentLoaded
+</script>
+
+</body>
+</html>
