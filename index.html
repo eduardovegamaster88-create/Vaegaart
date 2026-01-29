@@ -524,15 +524,29 @@ nav a:hover::after {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
+/* Marca de agua VEGAART */
 .gallery-item::before {
-    content: "";
+    content: "VEGAART";
     position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: 1;
-    mix-blend-mode: multiply;
+    bottom: 15px;
+    right: 15px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(255, 61, 0, 0.5);
+    z-index: 3;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+    transition: all 0.4s ease;
+}
+
+.gallery-item:hover::before {
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.9),
+        0 0 15px rgba(255, 61, 0, 0.8);
 }
 
 .gallery-item::after {
@@ -558,8 +572,19 @@ nav a:hover::after {
         0 0 0 3px var(--primary);
 }
 
-.gallery-item:hover::before {
-    opacity: 0.3;
+/* Overlay de hover */
+.gallery-item .hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 61, 0, 0.3) 0%, rgba(221, 44, 0, 0.3) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    mix-blend-mode: multiply;
+}
+
+.gallery-item:hover .hover-overlay {
+    opacity: 1;
 }
 
 .gallery-item:hover::after {
@@ -690,6 +715,23 @@ nav a:hover::after {
     transform-origin: center center;
 }
 
+/* Marca de agua en modal */
+.modal-content::after {
+    content: "VEGAART";
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-shadow: 
+        3px 3px 6px rgba(0, 0, 0, 0.9),
+        0 0 20px rgba(255, 61, 0, 0.6);
+    z-index: 10;
+    pointer-events: none;
+    letter-spacing: 0.1em;
+}
+
 .modal-content img.show {
     opacity: 1;
 }
@@ -772,6 +814,19 @@ nav a:hover::after {
     
     .modal-arrow.right {
         right: 15px;
+    }
+    
+    /* Marca de agua más pequeña en móvil */
+    .gallery-item::before {
+        font-size: 0.9rem;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .modal-content::after {
+        font-size: 1.3rem;
+        bottom: 20px;
+        right: 20px;
     }
 }
 
